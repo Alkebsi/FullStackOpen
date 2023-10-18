@@ -1,5 +1,5 @@
 {
-  "name": "courseinfo",
+  "name": "anecdotes",
   "version": "1.0.0",
   "description": "First assignment form Part 1 of FullStack open course from University of Helsinki",
   "main": "index.js",

@@ -1,15 +1,15 @@
 {
-  "name": "unicafe",
+  "name": "courseinfo",
   "version": "1.0.0",
-  "description": "First assignment form Part 1 of FullStack open course from University of Helsinki",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
   "keywords": [],
-  "author": "Alkebsi",
-  "license": "Apache",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
