@@ -17,12 +17,20 @@ const App = () => {
       id: persons.length + 1,
     };
 
-    setPersons(persons.concat(nameObj));
+    persons.map((person) => {
+      const personsCopy = [...persons];
+      if (newName === person.name) {
+        alert(`${newName} is already added to the phonebook`);
+        setPersons(personsCopy);
+      } else {
+        setPersons(persons.concat(nameObj));
+      }
+    });
+
     setNewName('');
   };
 
   const handleNoteChange = (e) => {
-    console.log(e.target.value);
     setNewName(e.target.value);
   };
 
@@ -37,11 +45,14 @@ const App = () => {
           <button type="submit">add</button>
         </div>
       </form>
+
       <h2>Numbers</h2>
       {persons.map((person) => {
-        return <p key={person.id}>
-          {person.name} <br />
-        </p>
+        return (
+          <p key={person.id}>
+            {person.name} <br />
+          </p>
+        );
       })}
     </div>
   );
