@@ -6,6 +6,7 @@ const App = () => {
   ]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
+  const [filter, setFilter] = useState('');
 
   const addContact = (e) => {
     e.preventDefault();
@@ -16,16 +17,13 @@ const App = () => {
       id: persons.length + 1,
     };
 
-    persons.map((person) => {
-      const personsCopy = [...persons];
+    const existing = persons.find((person) => person.name === newName);
 
-      if (newName === person.name) {
-        alert(`${newName} is already added to the phonebook`);
-        setPersons(personsCopy);
-      } else {
-        setPersons(persons.concat(nameObj));
-      }
-    });
+    if (existing) {
+      alert(`${newName} is already added to phonebook!`)
+    } else {
+      setPersons(persons.concat(nameObj));
+    }
 
     setNewName('');
     setNewNumber('');
@@ -39,9 +37,20 @@ const App = () => {
     setNewNumber(e.target.value);
   };
 
+  const handleFilter = (e) => {
+    setFilter(e.target.value);
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <form>
+        <div>
+          filter shown with <input value={filter} onChange={handleFilter} />
+        </div>
+      </form>
+
+      <h2>add a new</h2>
       <form onSubmit={addContact}>
         <div>
           name: <input value={newName} onChange={handleNoteChange} />
