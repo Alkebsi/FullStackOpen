@@ -38,7 +38,7 @@ const App = () => {
   };
 
   const handleFilter = (e) => {
-    setFilter(e.target.value);
+    setFilter(new RegExp(e.target.value, 'ig'));
   };
 
   return (
@@ -46,7 +46,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <form>
         <div>
-          filter shown with <input value={filter} onChange={handleFilter} />
+          filter shown with <input onChange={handleFilter} />
         </div>
       </form>
 
@@ -64,12 +64,8 @@ const App = () => {
       </form>
 
       <h2>Numbers</h2>
-      {persons.map((person) => {
-        return (
-          <p key={person.id}>
-            {person.name} {person.number} <br />
-          </p>
-        );
+      {persons.filter(person => person.name.search(filter) >= 0).map((p) => {
+        return <p key={p.id}>{p.name} {p.number}</p>
       })}
     </div>
   );
