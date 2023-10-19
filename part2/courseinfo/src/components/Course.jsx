@@ -5,11 +5,23 @@ import Total from './Total';
 const Course = ({ course }) => {
   return (
     <>
-      <Header courseName={course.name} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
+      {course.map((value, index) => {
+        return <div key={index}>
+          <Header courseName={value.name} />
+          <Content parts={value.parts} />
+          <Total parts={value.parts} />
+        </div>;
+      })}
     </>
   );
+
+  // return (
+  //   <>
+  //     <Header courseName={course[0].name} />
+  //     <Content parts={course[0].parts} />
+  //     <Total parts={course[0].parts} />
+  //   </>
+  // );
 };
 
 export default Course;
