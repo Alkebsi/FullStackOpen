@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Persons from './components/Persons';
 import PersonForm from './components/PersonForm';
 import Filter from './components/Filter';
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-1234567', id: 1 },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/persons').then((response) => {
+      setPersons(response.data);
+    });
+  }, []);
 
   const addContact = (e) => {
     e.preventDefault();
@@ -23,7 +28,7 @@ const App = () => {
     const existing = persons.find((person) => person.name === newName);
 
     if (existing) {
-      alert(`${newName} is already added to phonebook!`)
+      alert(`${newName} is already added to phonebook!`);
     } else {
       setPersons(persons.concat(nameObj));
     }
@@ -47,20 +52,21 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter handleFilter={handleFilter}/>
-
-      {/* <form>
-        <div>
-          filter shown with <input onChange={handleFilter} />
-        </div>
-      </form> */}
+      <Filter handleFilter={handleFilter} />
 
       <h2>add a new</h2>
-      <PersonForm args={ { addContact, newName, newNumber, handleNameChange, handleNumberChange } } />
-      
+      <PersonForm
+        args={{
+          addContact,
+          newName,
+          newNumber,
+          handleNameChange,
+          handleNumberChange,
+        }}
+      />
+
       <h2>Numbers</h2>
-      <Persons persons={persons} filter={filter}/>
-      
+      <Persons persons={persons} filter={filter} />
     </div>
   );
 };
