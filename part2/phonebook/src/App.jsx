@@ -28,7 +28,15 @@ const App = () => {
     const existing = persons.find((person) => person.name === newName);
 
     if (existing) {
-      alert(`${newName} is already added to phonebook!`);
+      const updateNumber = confirm(
+        `${newName} is already added to phonebook, replace the old number with a new one?`
+      );
+
+      if (updateNumber) {
+        personService.update(existing.id, personsObj).then(() => {
+          setUpdateData(updateData + 1);
+        });
+      }
     } else {
       personService.create(personsObj).then((data) => {
         personService.getAll().then((data) => {
@@ -55,9 +63,13 @@ const App = () => {
   };
 
   const handleDelete = (e) => {
-    personService.remove(e.target.id, e.target.name).then(() => {
-      setUpdateData(updateData + 1);
-    });
+    const deleteData = confirm(`Delete ${e.target.name} ?`);
+
+    if (deleteData) {
+      personService.remove(e.target.id, e.target.name).then(() => {
+        setUpdateData(updateData + 1);
+      });
+    }
   };
 
   return (

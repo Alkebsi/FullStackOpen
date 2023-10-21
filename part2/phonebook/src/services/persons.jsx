@@ -12,15 +12,14 @@ const create = (newObject) => {
   return request.then((response) => response.data);
 };
 
-const remove = (id, name) => {
-  const confirmedRemoval = confirm(`Delete ${name} ?`);
-
-  if (confirmedRemoval) {
-    const request = axios.delete(`${baseUrl}/${id}`);
-    return request.then((response) => response.data);
-  } else {
-    return axios.get(baseUrl);
-  }
+const remove = (id) => {
+  const request = axios.delete(`${baseUrl}/${id}`);
+  return request.then((response) => response.data);
 };
 
-export default { getAll, create, remove };
+const update = (id, newObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newObject);
+  return request.then((response) => response.data);
+};
+
+export default { getAll, create, remove, update };
