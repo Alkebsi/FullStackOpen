@@ -8,3 +8,13 @@
   font-size: large;
   font-weight: 900;
 }
+.error {
+  background-color: #dae6e2;
+  color: red;
+  border: 2px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: large;
+  font-weight: 900;
+}
