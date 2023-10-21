@@ -1,8 +1,10 @@
-const PersonsDetails = ({ person }) => {
+const PersonsDetails = ({ person, handleDelete }) => {
+  console.log(person);
   return (
-    <p>
-      {person.name} {person.number}
-    </p>
+    <div>
+      {person.name} {person.number} &nbsp;&nbsp;
+      <button onClick={handleDelete} id={person.id} name={person.name}>delete</button>
+    </div>
   );
 };
 

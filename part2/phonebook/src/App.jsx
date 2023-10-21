@@ -10,12 +10,13 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
+  const [updateData, setUpdateData] = useState(1);
 
   useEffect(() => {
-    personService.getAll().then((response) => {
-      setPersons(response.data);
+    personService.getAll().then((data) => {
+      setPersons(data);
     });
-  }, []);
+  }, [updateData]);
 
   const addContact = (e) => {
     e.preventDefault();
@@ -23,7 +24,6 @@ const App = () => {
     const personsObj = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1,
     };
 
     const existing = persons.find((person) => person.name === newName);
@@ -31,8 +31,11 @@ const App = () => {
     if (existing) {
       alert(`${newName} is already added to phonebook!`);
     } else {
-      personService.create(personsObj).then((response) => {
-        setPersons(persons.concat(personsObj));
+      personService.create(personsObj).then((data) => {
+        personService.getAll().then((data) => {
+          setPersons(persons.concat(personsObj));
+          setPersons(data);
+        });
       });
     }
 
@@ -52,6 +55,12 @@ const App = () => {
     setFilter(new RegExp(e.target.value, 'ig'));
   };
 
+  const handleDelete = (e) => {
+    personService.remove(e.target.id, e.target.name).then(() => {
+      setUpdateData(updateData + 1);
+    });
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -69,7 +78,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Persons persons={persons} filter={filter} />
+      <Persons persons={persons} filter={filter} handleDelete={handleDelete} />
     </div>
   );
 };
