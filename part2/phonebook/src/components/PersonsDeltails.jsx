@@ -1,5 +1,4 @@
 const PersonsDetails = ({ person, handleDelete }) => {
-  console.log(person);
   return (
     <div>
       {person.name} {person.number} &nbsp;&nbsp;
