@@ -13,6 +13,7 @@ const App = () => {
       setCountries(data);
     });
   }, []);
+
   const handleFiltering = (e) => {
     setFilterKey(e.target.value);
 
@@ -24,10 +25,22 @@ const App = () => {
     );
   };
 
+  const handleCountryShow = (e) => {
+    setFilterKey(e.target.name);
+
+    
+    setDisplay(
+      countries.filter(
+        (country) =>
+          country.name.common.search(new RegExp(e.target.name, 'ig')) >= 0
+      )
+    );
+  }
+  
   return (
     <div>
       <Filter handleFiltering={handleFiltering} />
-      <Countries display={display} filterKey={filterKey} />
+      <Countries display={display} filterKey={filterKey} handleCountryShow={handleCountryShow} />
     </div>
   );
 };

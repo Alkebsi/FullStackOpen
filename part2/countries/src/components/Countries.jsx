@@ -1,14 +1,14 @@
-import CountriesDetials from './CountriesDetails';
-import Country from './Country';
+import CountriesBrief from './CountriesBrief';
+import Country from './SingleCountryDetails';
 
-const Countries = ({ display, filterKey,  }) => {
+const Countries = ({ display, filterKey, handleCountryShow }) => {
   let result = "You haven't set a filter query!";
 
   if (display.length > 0 && filterKey) {
     if (display.length > 10) {
       result = 'Too many entries. Please, try to specify your filter.';
     } else if (display.length <= 10 && display.length > 1) {
-      result = <CountriesDetials display={display} />;
+      result = <CountriesBrief display={display} handleCountryShow={handleCountryShow} />;
     } else if (display.length === 1) {
       result = <Country display={display[0]} />;
     }
