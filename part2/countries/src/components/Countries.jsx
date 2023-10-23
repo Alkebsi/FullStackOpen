@@ -13,7 +13,7 @@ const Countries = ({ display, filterKey, handleCountryShow }) => {
       result = <Country display={display[0]} />;
     }
   } else if (filterKey && display.length === 0) {
-    result = 'Nothing matches your query';
+    result = 'Nothing matches your query, or data is still pending';
   }
 
   return (

@@ -1,3 +1,5 @@
+import WeatherData from '../services/WeatherData';
+
 const Country = ({ display }) => {
   let langs = [];
 
@@ -23,7 +25,9 @@ const Country = ({ display }) => {
         })}
       </ul>
 
-      <img src={display.flags.svg} alt={display.flags.alt} /> 
+      <img src={display.flags.svg} alt={display.flags.alt} width={200} />
+
+      <WeatherData city={display.capital[0]} />
     </div>
   );
 };
