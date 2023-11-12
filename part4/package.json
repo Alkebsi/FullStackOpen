@@ -8,7 +8,7 @@
     "dev": "nodemon index.js",
     "build:ui": "rm -rf build && cd frontend/ && npm run build && cp -r build ../",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose"
   },
   "author": "Alkebsi",
   "license": "MIT",
@@ -32,5 +32,8 @@
     "eslint": "^8.52.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "http-proxy-middleware": "^2.0.6"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
