@@ -1,6 +1,6 @@
 const listHelper = require('../utils/list_helper');
 
-describe('total likes', () => {
+describe('favorate post', () => {
   const listOfManyBlogs = [
     {
       _id: '5a422aa71b54a676234d17f8',
@@ -20,7 +20,7 @@ describe('total likes', () => {
     },
     {
       _id: '5a422aa71b54a676234d17f8',
-      title: 'Go To Statement Considered Harmful',
+      title: 'Is Living better than death?',
       author: 'Edsger W. Dijkstra',
       url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
       likes: 55,
@@ -28,8 +28,8 @@ describe('total likes', () => {
     },
     {
       _id: '5a422aa71b54a676234d17f8',
-      title: 'Go To Statement Considered Harmful',
-      author: 'Edsger W. Dijkstra',
+      title: 'Best Blog of the Year',
+      author: 'Doctor JR. Someoneson',
       url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
       likes: 58,
       __v: 0,
@@ -44,8 +44,12 @@ describe('total likes', () => {
     },
   ];
 
-  test('when list has only one blog, equals the likes of that', () => {
-    const result = listHelper.totalLikes(listOfManyBlogs);
-    expect(result).toBe(131);
+  test('best blog, equals the most liked blog', () => {
+    const result = listHelper.favoriteBlog(listOfManyBlogs);
+    expect(result).toEqual({
+      author: 'Doctor JR. Someoneson',
+      likes: 58,
+      title: 'Best Blog of the Year',
+    });
   });
 });
