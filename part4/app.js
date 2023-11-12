@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./utils/config');
 const blogsRouter = require('./controllers/blog');
-// const middleware = require('./utils/middleware');
+const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
 
 const app = express();
@@ -25,6 +25,6 @@ app.use(cors());
 app.use(express.static('dist'));
 app.use(express.json());
 app.use('/api/blogs', blogsRouter);
-// app.use(middleware.requestLogger);
+app.use(middleware.unknownEndpoint);
 
 module.exports = app;
