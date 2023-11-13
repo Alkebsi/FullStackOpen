@@ -26,8 +26,30 @@ const favoriteBlog = (bloglist) => {
   return result;
 };
 
+// Input: blogs, Output: author with most blogs + post's number
+const mostBlogs = (bloglist) => {
+  let authors = bloglist.map((blog) => blog.author);
+  authors = [...new Set(authors)];
+
+  const numberOfPosts = new Array(authors.length).fill(0);
+
+  // I had to break the rules here, sorry!
+  // eslint-disable-next-line no-return-assign
+  bloglist.map((p) => numberOfPosts[authors.indexOf(p.author)] += 1);
+
+  const index = numberOfPosts.indexOf(Math.max(...numberOfPosts));
+
+  const result = {
+    author: authors[index],
+    blogs: numberOfPosts[index],
+  };
+
+  return result;
+};
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
+  mostBlogs,
 };
