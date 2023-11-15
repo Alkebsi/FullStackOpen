@@ -1,22 +1,31 @@
 const blogsRouter = require('express').Router();
 const Blog = require('../models/blog');
 
-blogsRouter.get('/', (request, response) => {
-  Blog.find({}).then((blogs) => {
-    response.json(blogs);
-  });
+// Getting all the blogs
+blogsRouter.get('/', async (request, response) => {
+  const blogs = await Blog.find({});
+
+  response.json(blogs);
 });
 
-blogsRouter.post('/', (request, response) => {
+// Creating a new blog
+blogsRouter.post('/', async (request, response) => {
   const blog = new Blog(request.body);
 
   if (!blog.url || !blog.title) {
-    return response.status(400).json({ error: 'content missing' });
-  }
+    response.status(400).json({ error: 'content missing' });
+  } else {
+    const result = await blog.save();
 
-  blog.save().then((result) => {
     response.status(201).json(result);
-  });
+  }
+});
+
+// Deleting a blog
+blogsRouter.delete('/:id', async (request, response) => {
+  await Blog.findByIdAndDelete(request.params.id);
+
+  response.status(204).end();
 });
 
 module.exports = blogsRouter;

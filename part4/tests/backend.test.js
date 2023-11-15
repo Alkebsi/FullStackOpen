@@ -91,6 +91,21 @@ test('if titile or url is missing, request fails with 400', async () => {
     .expect('Content-Type', /application\/json/);
 });
 
+test('if id is valid, deleted successfully with code 201', async () => {
+  const blogsInDB = await helper.blogsDB();
+  const blogToDelete = blogsInDB[0];
+
+  await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
+
+  const blogsFinalResult = await helper.blogsDB();
+
+  expect(blogsFinalResult).toHaveLength(helper.initialBloglist.length - 1);
+
+  const titles = blogsFinalResult.map((p) => p.title);
+
+  expect(titles).not.toContain(blogToDelete.title);
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
