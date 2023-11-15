@@ -106,6 +106,24 @@ test('if id is valid, deleted successfully with code 201', async () => {
   expect(titles).not.toContain(blogToDelete.title);
 });
 
+test('a blog post can be updated', async () => {
+  const blogsInDB = await helper.blogsDB();
+  const blogToUpdate = blogsInDB[0];
+
+  const updatedBlog = {
+    title: blogToUpdate.title,
+    author: blogToUpdate.author,
+    url: blogToUpdate.url,
+    likes: blogToUpdate.likes + 1,
+  };
+
+  await api.put(`/api/blogs/${blogToUpdate.id}`, updatedBlog).expect(200);
+
+  const blogsFinalResult = await helper.blogsDB();
+
+  expect(blogsFinalResult[0].likes).toBe(updatedBlog.likes - 1);
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
