@@ -18,6 +18,9 @@ blogSchema.set('toJSON', {
   },
 });
 
+// Refrence: geeksforgeeks.org/mongoose-schematype-prototype-default-api/
+blogSchema.path('likes').default(0);
+
 const Blog = mongoose.model('Blog', blogSchema);
 
 module.exports = Blog;

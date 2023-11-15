@@ -58,6 +58,25 @@ test('a blog post can be added', async () => {
   expect(contents).toContain('Getting Started with CEP Extensions');
 });
 
+test('if likes is missing, it defualts to 0', async () => {
+  const newBlog = {
+    title: 'Getting Started with CEP Extensions',
+    author: 'Adobe Community',
+    url: 'https://github.com/Adobe-CEP/Getting-Started-guides',
+  };
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/);
+
+  const response = await api.get('/api/blogs');
+  const { likes } = response.body[helper.initialBloglist.length];
+
+  expect(likes).toBe(0);
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
