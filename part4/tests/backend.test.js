@@ -77,6 +77,20 @@ test('if likes is missing, it defualts to 0', async () => {
   expect(likes).toBe(0);
 });
 
+test('if titile or url is missing, request fails with 400', async () => {
+  const newBlog = {
+    url: 'https://github.com/Adobe-CEP/Getting-Started-guides',
+    likes: 8,
+    author: 'Adobe Community',
+  };
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+    .expect('Content-Type', /application\/json/);
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
