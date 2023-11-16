@@ -4,7 +4,7 @@ const errorHandler = (error, request, response, next) => {
   logger.error('logger', error.message);
 
   if (error.name === 'ValidationError') {
-    return response.status(400).send({ error: 'Malformated Username and/or Password' });
+    return response.status(400).send({ error: error.message });
   }
 
   next(error);

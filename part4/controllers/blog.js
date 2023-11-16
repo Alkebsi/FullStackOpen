@@ -1,5 +1,6 @@
 const blogsRouter = require('express').Router();
 const Blog = require('../models/blog');
+const User = require('../models/user');
 
 // Getting all the blogs
 blogsRouter.get('/', async (request, response) => {
@@ -11,16 +12,19 @@ blogsRouter.get('/', async (request, response) => {
 // Creating a new blog
 blogsRouter.post('/', async (request, response) => {
   const blog = new Blog(request.body);
-
+  const user = await User.findById(request.body.userId);
+  console.log(user);
   if (!blog.url || !blog.title) {
     response.status(400).json({ error: 'content missing' });
   } else {
-    blog.user = '6555bb96dafda5e49e8494e9';
+    blog.user = user.id;
 
-    const result = await blog.save();
-    console.log(blog, result);
+    const savedBlog = await blog.save();
 
-    response.status(201).json(result);
+    user.blogs = user.blogs.concat(savedBlog._id);
+    await user.save();
+
+    response.status(201).json(savedBlog);
   }
 });
 
