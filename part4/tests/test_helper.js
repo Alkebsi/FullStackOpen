@@ -40,6 +40,35 @@ const initialBloglist = [
   },
 ];
 
+// Setting the inital users data
+const initialUsers = [
+  {
+    username: 'Doe',
+    name: 'John Doe',
+    password: 'DoeJohndon2001',
+  },
+  {
+    username: 'Anna21',
+    name: 'Anna Harold',
+    password: '98-9029820892anna',
+  },
+  {
+    username: 'JMcKay',
+    name: 'JJ McKay',
+    password: 'olatanjy1919',
+  },
+  {
+    username: 'Williamson',
+    name: 'Mark Williams',
+    password: 'marklur79',
+  },
+  {
+    username: 'Samson',
+    name: 'Jake Samson',
+    password: 'seme2929',
+  },
+];
+
 // Input: nothing, Output: blogs in DB
 const blogsDB = async () => {
   const blogs = await Blog.find({});
@@ -48,5 +77,6 @@ const blogsDB = async () => {
 
 module.exports = {
   initialBloglist,
+  initialUsers,
   blogsDB,
 };
