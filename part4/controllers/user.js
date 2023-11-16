@@ -16,15 +16,21 @@ usersRouter.post('/', async (request, response) => {
     username,
     name,
     passwordHash,
+    blogs: '65534ecaa37bceb3f650fadc',
   });
 
   const savedUser = await user.save();
   response.status(201).json(savedUser);
 });
 
-usersRouter.get('/', async (req, res) => {
-  const users = await User.find({});
-  res.json(users);
+usersRouter.get('/', async (request, response) => {
+  const users = await User.find({}).populate('blogs', {
+    title: 1,
+    author: 1,
+    url: 1,
+    likes: 1,
+  });
+  response.json(users);
 });
 
 module.exports = usersRouter;

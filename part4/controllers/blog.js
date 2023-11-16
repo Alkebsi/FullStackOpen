@@ -3,7 +3,7 @@ const Blog = require('../models/blog');
 
 // Getting all the blogs
 blogsRouter.get('/', async (request, response) => {
-  const blogs = await Blog.find({});
+  const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 });
 
   response.json(blogs);
 });
@@ -15,7 +15,10 @@ blogsRouter.post('/', async (request, response) => {
   if (!blog.url || !blog.title) {
     response.status(400).json({ error: 'content missing' });
   } else {
+    blog.user = '6555bb96dafda5e49e8494e9';
+
     const result = await blog.save();
+    console.log(blog, result);
 
     response.status(201).json(result);
   }
