@@ -28,6 +28,7 @@ app.use(express.static('dist'));
 app.use(express.json());
 app.use('/api/blogs', blogsRouter);
 app.use('/api/users', usersRouter);
+app.use(middleware.errorHandler);
 app.use(middleware.unknownEndpoint);
 
 module.exports = app;
