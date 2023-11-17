@@ -1,3 +1,4 @@
+require('dotenv').config();
 const blogsRouter = require('express').Router();
 const jwt = require('jsonwebtoken');
 const Blog = require('../models/blog');
