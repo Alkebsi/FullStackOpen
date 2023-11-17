@@ -13,7 +13,7 @@ blogsRouter.get('/', async (request, response) => {
 blogsRouter.post('/', async (request, response) => {
   const blog = new Blog(request.body);
   const user = await User.findById(request.body.userId);
-  console.log(user);
+
   if (!blog.url || !blog.title) {
     response.status(400).json({ error: 'content missing' });
   } else {
