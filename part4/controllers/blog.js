@@ -1,6 +1,5 @@
 require('dotenv').config();
 const blogsRouter = require('express').Router();
-const jwt = require('jsonwebtoken');
 const Blog = require('../models/blog');
 const User = require('../models/user');
 
@@ -15,14 +14,12 @@ blogsRouter.get('/', async (request, response) => {
 blogsRouter.post('/', async (request, response) => {
   const blog = new Blog(request.body);
 
-  const decodedToken = jwt.verify(request.token, process.env.SECRET);
-
   if (!blog.url || !blog.title) {
     response.status(400).json({ error: 'content missing' });
-  } else if (!decodedToken.id) {
+  } else if (!request.decodedToken.id) {
     response.status(401).json({ error: 'token invalid' });
   } else {
-    const user = await User.findById(decodedToken.id);
+    const user = await User.findById(request.decodedToken.id);
     blog.user = user.id;
 
     const savedBlog = await blog.save();
@@ -36,9 +33,17 @@ blogsRouter.post('/', async (request, response) => {
 
 // Deleting a blog
 blogsRouter.delete('/:id', async (request, response) => {
-  await Blog.findByIdAndDelete(request.params.id);
+  if (!request.token || !request.decodedToken.id) {
+    return response.status(401).json({ error: 'invalid token' });
+  }
+  const blog = await Blog.findById(request.params.id);
 
-  response.status(204).end();
+  if (blog.user.toString() === request.decodedToken.id.toString()) {
+    await Blog.findByIdAndDelete(request.params.id);
+    response.status(204).end();
+  } else {
+    response.status(401).json({ error: 'Invalid User Access' });
+  }
 });
 
 // Updating a blog

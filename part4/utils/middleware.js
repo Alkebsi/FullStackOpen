@@ -1,3 +1,5 @@
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 const logger = require('./logger');
 
 const errorHandler = (error, request, response, next) => {
@@ -17,6 +19,7 @@ const tokenExtractor = (request, response, next) => {
   const authorization = request.get('authorization');
   if (authorization && authorization.startsWith('Bearer ')) {
     request.token = authorization.replace('Bearer ', '');
+    request.decodedToken = jwt.verify(request.token, process.env.SECRET);
   } else {
     request.token = null;
   }
