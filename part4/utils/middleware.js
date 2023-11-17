@@ -27,6 +27,14 @@ const tokenExtractor = (request, response, next) => {
   next();
 };
 
+const userExtractor = (request, response, next) => {
+  if (request.token) {
+    request.user = request.decodedToken.username;
+  }
+
+  next();
+};
+
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' });
 };
@@ -35,4 +43,5 @@ module.exports = {
   errorHandler,
   unknownEndpoint,
   tokenExtractor,
+  userExtractor,
 };
