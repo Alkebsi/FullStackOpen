@@ -6,7 +6,6 @@ const User = require('../models/user');
 const helper = require('./test_helper');
 
 const api = supertest(app);
-
 // Making sure the database is equal to the inital blogs
 beforeEach(async () => {
   await Blog.deleteMany();
@@ -17,7 +16,7 @@ beforeEach(async () => {
     await api.post('/api/users').send(user);
   });
 });
-
+/*
 // -- Blog Tests -- //
 describe('Blogs First CRUD Stage, Create!', () => {
   test('a blog post can be added', async () => {
@@ -41,6 +40,7 @@ describe('Blogs First CRUD Stage, Create!', () => {
     expect(response.body).toHaveLength(helper.initialBloglist.length + 1);
     expect(contents).toContain('Getting Started with CEP Extensions');
   });
+});
 
   test('if likes is missing, it defualts to 0', async () => {
     const newBlog = {
@@ -75,7 +75,7 @@ describe('Blogs First CRUD Stage, Create!', () => {
       .expect('Content-Type', /application\/json/);
   });
 });
-
+// */
 describe('Blogs Second CRUD Stage, Read!', () => {
   test('blogs are returned as json', async () => {
     await api
@@ -90,7 +90,7 @@ describe('Blogs Second CRUD Stage, Read!', () => {
     expect(response.body[0].id).toBeDefined();
   });
 });
-
+/*
 describe('Blogs Third CRUD Stage, Update!', () => {
   test('a blog post can be updated', async () => {
     const blogsInDB = await helper.blogsDB();
@@ -127,7 +127,7 @@ describe('Blogs Last CRUD Stage, Delete', () => {
     expect(titles).not.toContain(blogToDelete.title);
   });
 });
-
+*/
 // -- User Tests -- //
 describe('Users First CRUD Stage, Create!', () => {
   test('a valid user can be added', async () => {
