@@ -29,7 +29,9 @@ const tokenExtractor = (request, response, next) => {
 
 const userExtractor = (request, response, next) => {
   if (request.token) {
-    request.user = request.decodedToken.username;
+    request.user = request.decodedToken;
+  } else {
+    response.status(401).json({ error: 'Login Session Expired' });
   }
 
   next();
