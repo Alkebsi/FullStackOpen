@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const app = require('../app');
@@ -19,6 +20,14 @@ beforeEach(async () => {
 /*
 // -- Blog Tests -- //
 describe('Blogs First CRUD Stage, Create!', () => {
+  beforeEach(async () => {
+    await User.deleteMany({});
+
+    const testUser = new User({ username: 'test', password: 'testing' });
+
+    const savedUser = await testUser.save();
+    console.log(savedUser);
+  });
   test('a blog post can be added', async () => {
     const newBlog = {
       title: 'Getting Started with CEP Extensions',
@@ -27,9 +36,16 @@ describe('Blogs First CRUD Stage, Create!', () => {
       likes: 10,
     };
 
+    const user = await User.findOne({ username: 'test' });
+    const userForToken = { username: 'test', id: user._id };
+    const token = jwt.sign(userForToken, process.env.SECRET, {
+      expireIn: 60 * 60,
+    });
+
     await api
       .post('/api/blogs')
       .send(newBlog)
+      .set({ Authorization: `Bearer ${token}` })
       .expect(201)
       .expect('Content-Type', /application\/json/);
 
@@ -42,6 +58,7 @@ describe('Blogs First CRUD Stage, Create!', () => {
   });
 });
 
+/*
   test('if likes is missing, it defualts to 0', async () => {
     const newBlog = {
       title: 'Getting Started with CEP Extensions',
@@ -75,7 +92,7 @@ describe('Blogs First CRUD Stage, Create!', () => {
       .expect('Content-Type', /application\/json/);
   });
 });
-// */
+
 describe('Blogs Second CRUD Stage, Read!', () => {
   test('blogs are returned as json', async () => {
     await api
