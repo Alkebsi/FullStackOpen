@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import Blog from './components/Blog';
 import LoginForm from './components/LoginForm';
 import Bloglist from './components/Bloglist';
+import Togglable from './components/Togglable';
 import blogService from './services/blogs';
 import loginService from './services/login';
 
@@ -34,6 +36,8 @@ const App = () => {
   const onAuthorChange = ({ target }) => setAuthor(target.value);
   const onUrlChange = ({ target }) => setUrl(target.value);
 
+  const blogsFormRef = useRef();
+  
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -85,6 +89,8 @@ const App = () => {
     setAuthor('');
     setUrl('');
     setUpdate(update + 1);
+
+    blogsFormRef.current.toggleVisibility();
   };
 
   return (
@@ -97,21 +103,33 @@ const App = () => {
           <div className="success">{successMessage}</div>
         ) : null}
       </div>
+
       {user !== null && (
-        <Bloglist
-          args={{
-            user,
-            handleLogout,
-            handleNewBlog,
-            onTitleChange,
-            onAuthorChange,
-            onUrlChange,
-            title,
-            author,
-            url,
-            blogs,
-          }}
-        />
+        <div>
+          <h2>blogs</h2>
+          <div>
+            {user.name} is logged in
+            <button onClick={handleLogout}>logout</button>
+          </div>
+          <br />
+          <Togglable buttonLable="new blog" ref={blogsFormRef}>
+            <Bloglist
+              args={{
+                handleNewBlog,
+                onTitleChange,
+                onAuthorChange,
+                onUrlChange,
+                title,
+                author,
+                url,
+              }}
+            />
+          </Togglable>
+
+          {blogs.map((blog) => (
+            <Blog key={blog.id} blog={blog} />
+          ))}
+        </div>
       )}
 
       {user === null && (
