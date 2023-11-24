@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import Blog from './components/Blog';
 import LoginForm from './components/LoginForm';
-import AddBlog from './components/AddBlog';
+import Bloglist from './components/Bloglist';
 import blogService from './services/blogs';
 import loginService from './services/login';
 
@@ -31,10 +30,10 @@ const App = () => {
   const onUsernameChange = ({ target }) => setUsername(target.value);
   const onPasswordChange = ({ target }) => setPassword(target.value);
 
-  const onTitleChange = ({target}) => setTitle(target.value);
-  const onAuthorChange = ({target}) => setAuthor(target.value);
-  const onUrlChange = ({target}) => setUrl(target.value);
-  
+  const onTitleChange = ({ target }) => setTitle(target.value);
+  const onAuthorChange = ({ target }) => setAuthor(target.value);
+  const onUrlChange = ({ target }) => setUrl(target.value);
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -88,23 +87,6 @@ const App = () => {
     setUpdate(update + 1);
   };
 
-  const bloglist = () => (
-    <div>
-      <h2>blogs</h2>
-      <div>
-        {user.name} is logged in
-        <button onClick={handleLogout}>logout</button>
-      </div>
-      
-      <AddBlog args={{handleNewBlog, onTitleChange, onAuthorChange, onUrlChange, title, author, url}} />
-      
-      <br />
-      {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
-    </div>
-  );
-
   return (
     <>
       <div>
@@ -115,11 +97,32 @@ const App = () => {
           <div className="success">{successMessage}</div>
         ) : null}
       </div>
-      {user !== null && bloglist()}
+      {user !== null && (
+        <Bloglist
+          args={{
+            user,
+            handleLogout,
+            handleNewBlog,
+            onTitleChange,
+            onAuthorChange,
+            onUrlChange,
+            title,
+            author,
+            url,
+            blogs,
+          }}
+        />
+      )}
 
       {user === null && (
         <LoginForm
-          args={{handleLogin, onUsernameChange, onPasswordChange, username, password}}
+          args={{
+            handleLogin,
+            onUsernameChange,
+            onPasswordChange,
+            username,
+            password,
+          }}
         />
       )}
     </>
