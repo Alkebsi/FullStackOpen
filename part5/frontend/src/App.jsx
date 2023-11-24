@@ -4,10 +4,14 @@ import blogService from './services/blogs';
 import loginService from './services/login';
 
 const App = () => {
+  const [update, setUpdate] = useState(0);
   const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [url, setUrl] = useState('');
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -16,8 +20,9 @@ const App = () => {
     if (loggedUser) {
       const user = JSON.parse(loggedUser);
       setUser(user);
+      blogService.setToken(user.token);
     }
-  }, []);
+  }, [update]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,14 +36,14 @@ const App = () => {
       // Saving user to the local storage
       localStorage.setItem('loggedUser', JSON.stringify(user));
 
+      blogService.setToken(user.token);
+
       setUser(user);
       setUsername('');
       setPassword('');
     } catch (exception) {
       console.log('Wrong credentials');
     }
-
-    console.log(user);
   };
 
   const handleLogout = () => {
@@ -47,6 +52,21 @@ const App = () => {
       localStorage.clear();
       location.reload();
     }
+  };
+
+  const handleNewBlog = (e) => {
+    e.preventDefault();
+
+    blogService.create({
+      title,
+      author,
+      url,
+    });
+
+    setTitle('');
+    setAuthor('');
+    setUrl('');
+    setUpdate(update + 1);
   };
 
   const loginForm = () => (
@@ -69,7 +89,8 @@ const App = () => {
             value={password}
             name="Password"
             onChange={({ target }) => setPassword(target.value)}
-          /> <br />
+          />
+          <br />
           <button type="submit">login</button>
         </div>
       </form>
@@ -79,14 +100,48 @@ const App = () => {
   const bloglist = () => (
     <div>
       <h2>blogs</h2>
-      <div> 
-        {user.name} is logged in 
+      <div>
+        {user.name} is logged in
         <button onClick={handleLogout}>logout</button>
       </div>
+      {addBlog()}
       <br />
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
       ))}
+    </div>
+  );
+
+  const addBlog = () => (
+    <div>
+      <h2>create new</h2>
+      <form onSubmit={handleNewBlog}>
+        <div>
+          title:
+          <input
+            type="text"
+            value={title}
+            onChange={({ target }) => setTitle(target.value)}
+          />
+        </div>
+        <div>
+          author:
+          <input
+            type="text"
+            value={author}
+            onChange={({ target }) => setAuthor(target.value)}
+          />
+        </div>
+        <div>
+          url:
+          <input
+            type="url"
+            value={url}
+            onChange={({ target }) => setUrl(target.value)}
+          />
+        </div>
+        <button type="submit">create</button>
+      </form>
     </div>
   );
 
