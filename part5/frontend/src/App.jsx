@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Blog from './components/Blog';
+import LoginForm from './components/LoginForm';
 import blogService from './services/blogs';
 import loginService from './services/login';
 
@@ -26,6 +27,9 @@ const App = () => {
     }
   }, [update]);
 
+  const onUsernameChange = ({ target }) => setUsername(target.value);
+  const onPasswordChange = ({ target }) => setPassword(target.value);
+  
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -78,34 +82,6 @@ const App = () => {
     setUrl('');
     setUpdate(update + 1);
   };
-
-  const loginForm = () => (
-    <div>
-      <h2>log in to application</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          username:
-          <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          password:
-          <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-          <br />
-          <button type="submit">login</button>
-        </div>
-      </form>
-    </div>
-  );
 
   const bloglist = () => (
     <div>
@@ -166,7 +142,11 @@ const App = () => {
         ) : null}
       </div>
       {user !== null && bloglist()}
-      {user === null && loginForm()}
+      {user === null && (
+        <LoginForm
+          args={{handleLogin, onUsernameChange, onPasswordChange, username, password}}
+        />
+      )}
     </>
   );
 };
