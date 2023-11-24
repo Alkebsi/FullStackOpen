@@ -1,8 +1,8 @@
 import Blog from './Blog';
 import AddBlog from './AddBlog';
+import Togglable from './Togglable';
 
 const Bloglist = ({ args }) => {
-
   const {
     user,
     handleLogout,
@@ -15,7 +15,7 @@ const Bloglist = ({ args }) => {
     url,
     blogs,
   } = args;
-  
+
   return (
     <div>
       <h2>blogs</h2>
@@ -24,17 +24,19 @@ const Bloglist = ({ args }) => {
         <button onClick={handleLogout}>logout</button>
       </div>
 
-      <AddBlog
-        args={{
-          handleNewBlog,
-          onTitleChange,
-          onAuthorChange,
-          onUrlChange,
-          title,
-          author,
-          url,
-        }}
-      />
+      <Togglable buttonLable="new blog">
+        <AddBlog
+          args={{
+            handleNewBlog,
+            onTitleChange,
+            onAuthorChange,
+            onUrlChange,
+            title,
+            author,
+            url,
+          }}
+        />
+      </Togglable>
 
       <br />
       {blogs.map((blog) => (

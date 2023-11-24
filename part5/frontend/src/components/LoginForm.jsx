@@ -13,6 +13,7 @@ const LoginForm = ({ args }) => {
             value={username}
             name="Username"
             onChange={onUsernameChange}
+            required
           />
         </div>
         <div>
@@ -22,6 +23,7 @@ const LoginForm = ({ args }) => {
             value={password}
             name="Password"
             onChange={onPasswordChange}
+            required
           />
           <br />
           <button type="submit">login</button>

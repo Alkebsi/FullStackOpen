@@ -19,6 +19,7 @@ const AddBlog = ({ args }) => {
             type="text"
             value={title}
             onChange={onTitleChange}
+            required
           />
         </div>
         <div>
@@ -27,6 +28,7 @@ const AddBlog = ({ args }) => {
             type="text"
             value={author}
             onChange={onAuthorChange}
+            required
           />
         </div>
         <div>
@@ -35,6 +37,7 @@ const AddBlog = ({ args }) => {
             type="url"
             value={url}
             onChange={onUrlChange}
+            required
           />
         </div>
         <button type="submit">create</button>
