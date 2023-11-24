@@ -12,6 +12,8 @@ const App = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -42,7 +44,10 @@ const App = () => {
       setUsername('');
       setPassword('');
     } catch (exception) {
-      console.log('Wrong credentials');
+      setErrorMessage('Wrong username or password');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
     }
   };
 
@@ -62,6 +67,11 @@ const App = () => {
       author,
       url,
     });
+
+    setSuccessMessage(`a new blog ${title} by ${author} added`);
+    setTimeout(() => {
+      setSuccessMessage(null);
+    }, 3000);
 
     setTitle('');
     setAuthor('');
@@ -147,6 +157,14 @@ const App = () => {
 
   return (
     <>
+      <div>
+        {errorMessage !== null ? (
+          <div className="error">{errorMessage}</div>
+        ) : null}
+        {successMessage !== null ? (
+          <div className="success">{successMessage}</div>
+        ) : null}
+      </div>
       {user !== null && bloglist()}
       {user === null && loginForm()}
     </>
