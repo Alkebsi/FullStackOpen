@@ -17,7 +17,7 @@ const Blog = ({ blog }) => {
           likes {blog.likes} &nbsp;
           <button>like</button>
           <br />
-          {blog.author} &nbsp;
+          {blog.user.name} &nbsp;
         </>
       );
     } else {
@@ -34,7 +34,7 @@ const Blog = ({ blog }) => {
         padding: '10px',
       }}
     >
-      {blog.title} &nbsp;
+      {blog.title} {blog.author} &nbsp;
       {content()}
     </div>
   );
