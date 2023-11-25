@@ -111,6 +111,21 @@ const App = () => {
     return likes;
   };
 
+  const handleDeletion = (blog) => {
+    const remove = () => {
+      const ensure = confirm(`Remove blog ${blog.title} by ${blog.author}`);
+
+      if (ensure) {
+        blogService.remove(blog.id);
+        setUpdate(update + 1);
+      } else {
+        return;
+      }
+    };
+
+    return remove;
+  };
+
   return (
     <>
       <div>
@@ -145,7 +160,12 @@ const App = () => {
           </Togglable>
 
           {blogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} handleLikes={handleLikes} />
+            <Blog
+              key={blog.id}
+              blog={blog}
+              handleLikes={handleLikes}
+              handleDeletion={handleDeletion}
+            />
           ))}
         </div>
       )}
