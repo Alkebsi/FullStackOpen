@@ -1,8 +1,29 @@
-import { useRef } from 'react';
-import Togglable from './Togglable';
+import { useState } from 'react';
 
 const Blog = ({ blog }) => {
-  const blogsRef = useRef();
+  const [visible, setVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    setVisible(!visible)
+  }
+  
+  const content = () => {
+    if (visible) {
+      return (
+        <>
+          <button onClick={toggleVisibility}>hide</button><br />
+          {blog.url}
+          <br />
+          likes {blog.likes} &nbsp;
+          <button>like</button>
+          <br />
+          {blog.author} &nbsp;
+        </>
+      );
+    } else {
+      return <button onClick={toggleVisibility}>show</button>;
+    }
+  };
 
   return (
     <div
@@ -13,15 +34,8 @@ const Blog = ({ blog }) => {
         padding: '10px',
       }}
     >
-      {blog.title}
-      <Togglable buttonLable="view" ref={blogsRef}>
-        {blog.url}
-        <br />
-        likes {blog.likes} &nbsp;
-        <button>like</button>
-        <br />
-        {blog.author} &nbsp;
-      </Togglable>
+      {blog.title} &nbsp;
+      {content()}
     </div>
   );
 };
