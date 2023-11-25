@@ -10,6 +10,13 @@ blogsRouter.get('/', async (request, response) => {
   response.json(blogs);
 });
 
+// Getting a blog post based on its id
+blogsRouter.get('/:id', async (request, response) => {
+  const blogs = await Blog.findById(request.params.id).populate('user', { username: 1, name: 1 });
+
+  response.json(blogs);
+});
+
 // Creating a new blog
 blogsRouter.post('/', async (request, response) => {
   const blog = new Blog(request.body);

@@ -37,7 +37,7 @@ const App = () => {
   const onUrlChange = ({ target }) => setUrl(target.value);
 
   const blogsFormRef = useRef();
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -93,6 +93,22 @@ const App = () => {
     blogsFormRef.current.toggleVisibility();
   };
 
+  const handleLikes = (e) => {
+    const likes = () => {
+      const updatedBlogDetails = {
+        author: e.author,
+        likes: e.likes + 1,
+        title: e.title,
+        url: e.url,
+      };
+
+      blogService.update(e.id, updatedBlogDetails);
+      setUpdate(update + 1);
+    };
+
+    return likes;
+  };
+
   return (
     <>
       <div>
@@ -127,7 +143,7 @@ const App = () => {
           </Togglable>
 
           {blogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} />
+            <Blog key={blog.id} blog={blog} handleLikes={handleLikes} />
           ))}
         </div>
       )}

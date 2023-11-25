@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, handleLikes }) => {
   const [visible, setVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -15,7 +15,7 @@ const Blog = ({ blog }) => {
           {blog.url}
           <br />
           likes {blog.likes} &nbsp;
-          <button>like</button>
+          <button onClick={handleLikes(blog)}>like</button>
           <br />
           {blog.user.name} &nbsp;
         </>
