@@ -4,14 +4,15 @@ const Blog = ({ blog, handleLikes }) => {
   const [visible, setVisible] = useState(false);
 
   const toggleVisibility = () => {
-    setVisible(!visible)
-  }
-  
+    setVisible(!visible);
+  };
+
   const content = () => {
     if (visible) {
       return (
         <>
-          <button onClick={toggleVisibility}>hide</button><br />
+          <button onClick={toggleVisibility}>hide</button>
+          <br />
           {blog.url}
           <br />
           likes {blog.likes} &nbsp;
