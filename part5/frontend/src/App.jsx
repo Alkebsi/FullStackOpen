@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Blog from './components/Blog';
 import LoginForm from './components/LoginForm';
-import Bloglist from './components/Bloglist';
+import AddBlog from './components/AddBlog';
 import Togglable from './components/Togglable';
 import blogService from './services/blogs';
 import loginService from './services/login';
@@ -146,16 +146,14 @@ const App = () => {
           </div>
           <br />
           <Togglable buttonLable="new blog" ref={blogsFormRef}>
-            <Bloglist
-              args={{
-                handleNewBlog,
-                onTitleChange,
-                onAuthorChange,
-                onUrlChange,
-                title,
-                author,
-                url,
-              }}
+            <AddBlog
+              handleNewBlog={handleNewBlog}
+              onTitleChange={onTitleChange}
+              onAuthorChange={onAuthorChange}
+              onUrlChange={onUrlChange}
+              title={title}
+              author={author}
+              url={url}
             />
           </Togglable>
 
@@ -172,13 +170,11 @@ const App = () => {
 
       {user === null && (
         <LoginForm
-          args={{
-            handleLogin,
-            onUsernameChange,
-            onPasswordChange,
-            username,
-            password,
-          }}
+          handleLogin={handleLogin}
+          onUsernameChange={onUsernameChange}
+          onPasswordChange={onPasswordChange}
+          username={username}
+          password={password}
         />
       )}
     </>

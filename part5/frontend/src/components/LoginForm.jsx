@@ -1,7 +1,12 @@
-const LoginForm = ({ args }) => {
+import PropTypes from 'prop-types';
 
-  const {handleLogin, onUsernameChange, onPasswordChange, username, password} = args;
-  
+const LoginForm = ({
+  handleLogin,
+  onUsernameChange,
+  onPasswordChange,
+  username,
+  password,
+}) => {
   return (
     <div>
       <h2>log in to application</h2>
@@ -31,6 +36,14 @@ const LoginForm = ({ args }) => {
       </form>
     </div>
   );
+};
+
+LoginForm.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+  onUsernameChange: PropTypes.func.isRequired,
+  onPasswordChange: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
 };
 
 export default LoginForm;
