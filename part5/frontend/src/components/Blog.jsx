@@ -10,7 +10,7 @@ const Blog = ({ blog, handleLikes, handleDeletion }) => {
   const content = () => {
     if (visible) {
       return (
-        <>
+        <div id="blogs">
           <button onClick={toggleVisibility}>hide</button>
           <br />
           {blog.url}
@@ -21,7 +21,7 @@ const Blog = ({ blog, handleLikes, handleDeletion }) => {
           {blog.user.name} &nbsp;
           <br />
           <button onClick={handleDeletion(blog)}>remove</button>
-        </>
+        </div>
       );
     } else {
       return <button onClick={toggleVisibility}>show</button>;

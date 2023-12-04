@@ -8,6 +8,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "test": "jest",
     "lint": "eslint ."
   },
   "keywords": [],
@@ -30,6 +31,9 @@
     "eslint": "^8.52.0",
     "eslint-plugin-cypress": "^2.15.1",
     "jest-environment-jsdom": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   },
   "browserslist": {
     "production": [
