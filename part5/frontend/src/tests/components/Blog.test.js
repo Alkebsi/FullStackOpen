@@ -1,10 +1,13 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import Blog from '../../components/Blog';
 
 describe('rendering blogs', () => {
-  test('renders blog title + author, only', () => {
+  let element, mockHandler, div;
+
+  beforeEach(() => {
     const blog = {
       title: 'Type wars II',
       author: 'Robert C. Martin',
@@ -17,24 +20,35 @@ describe('rendering blogs', () => {
       },
     };
 
-    const handleLikes = () => {
-      console.log('likes are handled successfully');
-    };
+    mockHandler = jest.fn();
 
-    const handleDeletion = () => {
-      console.log('Deletion is handled successfully');
-    };
-
-    const element = render(
+    element = render(
       <Blog
         blog={blog}
-        handlelikes={handleLikes}
-        handleDeletion={handleDeletion}
+        handleLikes={mockHandler}
+        handleDeletion={mockHandler}
       />
     );
 
-    const div = element.container.querySelector('#blogs');
+    div = element.container.querySelector('#blogs');
+  });
+
+  test('renders blog title + author, only', () => {
     expect(div).toHaveTextContent('Type wars II Robert C. Martin', 'show');
-    expect(div).not.toHaveTextContent('likes 20', 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html');
+    expect(div).not.toHaveTextContent(
+      'likes 20',
+      'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html'
+    );
+  });
+
+  test('clicking the show button works', async () => {
+    const user = userEvent.setup();
+    const button = screen.getByText('show');
+    await user.click(button);
+
+    expect(div).toHaveTextContent(
+      'likes 20',
+      'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html'
+    );
   });
 });
