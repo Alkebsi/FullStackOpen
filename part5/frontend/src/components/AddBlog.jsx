@@ -1,24 +1,31 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const AddBlog = ({
-  handleNewBlog,
-  onTitleChange,
-  onAuthorChange,
-  onUrlChange,
-  title,
-  author,
-  url,
-}) => {
+const AddBlog = ({ handleNewBlog }) => {
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [url, setUrl] = useState('');
+
+  const addBlog = (e) => {
+    e.preventDefault();
+
+    handleNewBlog({ title, author, url });
+
+    setTitle('');
+    setAuthor('');
+    setUrl('');
+  };
+
   return (
     <div>
       <h2>create new</h2>
-      <form onSubmit={handleNewBlog}>
+      <form onSubmit={addBlog}>
         <div>
           title:
           <input
             type="text"
             value={title}
-            onChange={onTitleChange}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="Title here..."
             required
           />
@@ -28,14 +35,20 @@ const AddBlog = ({
           <input
             type="text"
             value={author}
-            onChange={onAuthorChange}
+            onChange={(e) => setAuthor(e.target.value)}
             placeholder="Author here..."
             required
           />
         </div>
         <div>
           url:
-          <input type="url" value={url} onChange={onUrlChange} placeholder="URL here..." required />
+          <input
+            type="url"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="URL here..."
+            required
+          />
         </div>
         <button type="submit">create</button>
       </form>
@@ -43,14 +56,6 @@ const AddBlog = ({
   );
 };
 
-AddBlog.propTypes = {
-  handleNewBlog: PropTypes.func.isRequired,
-  onTitleChange: PropTypes.func.isRequired,
-  onAuthorChange: PropTypes.func.isRequired,
-  onUrlChange: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-};
+AddBlog.propTypes = { handleNewBlog: PropTypes.func.isRequired };
 
 export default AddBlog;
