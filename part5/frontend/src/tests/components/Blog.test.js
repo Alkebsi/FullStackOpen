@@ -51,4 +51,16 @@ describe('rendering blogs', () => {
       'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html'
     );
   });
+
+  test('clicking the like twice works twice!', async () => {
+    const user = userEvent.setup();
+    const show = screen.getByText('show');
+    await user.click(show);
+
+    const like = screen.getByText('like');
+    await user.click(like);
+    await user.click(like);
+
+    expect(mockHandler.mock.calls).toHaveLength(2);
+  });
 });
