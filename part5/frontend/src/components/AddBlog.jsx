@@ -15,7 +15,13 @@ const AddBlog = ({
       <form onSubmit={handleNewBlog}>
         <div>
           title:
-          <input type="text" value={title} onChange={onTitleChange} required />
+          <input
+            type="text"
+            value={title}
+            onChange={onTitleChange}
+            placeholder="Title here..."
+            required
+          />
         </div>
         <div>
           author:
@@ -23,12 +29,13 @@ const AddBlog = ({
             type="text"
             value={author}
             onChange={onAuthorChange}
+            placeholder="Author here..."
             required
           />
         </div>
         <div>
           url:
-          <input type="url" value={url} onChange={onUrlChange} required />
+          <input type="url" value={url} onChange={onUrlChange} placeholder="URL here..." required />
         </div>
         <button type="submit">create</button>
       </form>
