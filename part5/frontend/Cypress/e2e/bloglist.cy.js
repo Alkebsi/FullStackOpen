@@ -1,6 +1,6 @@
 describe('Mohammed User Info', function () {
   beforeEach(function () {
-    cy.request('POST', 'http://localhost:3003/api/testing/reset');
+    cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`);
 
     const testingUser = {
       username: 'MKebsi',
@@ -8,13 +8,13 @@ describe('Mohammed User Info', function () {
       password: 'malkebsi',
     };
 
-    cy.request('POST', 'http://localhost:3003/api/users', testingUser);
+    cy.request('POST', `${Cypress.env('BACKEND')}/users`, testingUser);
 
-    cy.visit('http://localhost:3000');
+    cy.visit('');
   });
 
   it('Login form is shown', function () {
-    cy.visit('http://localhost:3000');
+    cy.visit('');
     cy.contains('log in to application');
     cy.contains('username');
     cy.contains('password');
@@ -87,7 +87,7 @@ describe('Mohammed User Info', function () {
 
 describe('Another user interactions', function () {
   beforeEach(function () {
-    cy.request('POST', 'http://localhost:3003/api/testing/reset');
+    cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`);
 
     const testingUserA = {
       username: 'MKebsi',
@@ -101,10 +101,10 @@ describe('Another user interactions', function () {
       password: 'guy7717',
     };
 
-    cy.request('POST', 'http://localhost:3003/api/users', testingUserA);
-    cy.request('POST', 'http://localhost:3003/api/users', testingUserB);
+    cy.request('POST', `${Cypress.env('BACKEND')}/users`, testingUserA);
+    cy.request('POST', `${Cypress.env('BACKEND')}/users`, testingUserB);
 
-    cy.visit('http://localhost:3000');
+    cy.visit('');
   });
 
   it('Another user can not see the remove button', function () {
@@ -152,14 +152,14 @@ describe('Another user interactions', function () {
 describe('Blogs Order', function () {
   it('Blogs are ordered accourding to their likes', function () {
     // Adding user info
-    cy.request('POST', 'http://localhost:3003/api/testing/reset');
+    cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`);
     const testingUser = {
       username: 'MKebsi',
       name: 'Mohammed Alkebsi',
       password: 'malkebsi',
     };
-    cy.request('POST', 'http://localhost:3003/api/users', testingUser);
-    cy.visit('http://localhost:3000');
+    cy.request('POST', `${Cypress.env('BACKEND')}/users`, testingUser);
+    cy.visit('');
 
     // Loggin
     cy.get('#username').type('MKebsi');
