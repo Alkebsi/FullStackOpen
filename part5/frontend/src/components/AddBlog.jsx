@@ -26,6 +26,7 @@ const AddBlog = ({ handleNewBlog }) => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            id="title"
             placeholder="Title here..."
             required
           />
@@ -36,6 +37,7 @@ const AddBlog = ({ handleNewBlog }) => {
             type="text"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
+            id="author"
             placeholder="Author here..."
             required
           />
@@ -46,11 +48,12 @@ const AddBlog = ({ handleNewBlog }) => {
             type="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
+            id="url"
             placeholder="URL here..."
             required
           />
         </div>
-        <button type="submit">create</button>
+        <button id="create-blog-button" type="submit">create</button>
       </form>
     </div>
   );

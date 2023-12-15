@@ -71,7 +71,7 @@ const App = () => {
 
     setBlogs(blogs.concat(newBlog));
 
-    setSuccessMessage(`a new blog ${newBlog.title} by ${newBlog.author} added`);
+    setSuccessMessage(`a blog ${newBlog.title} by ${newBlog.author} added`);
     setTimeout(() => {
       setSuccessMessage(null);
     }, 3000);
@@ -91,7 +91,9 @@ const App = () => {
       };
 
       blogService.update(e.id, updatedBlogDetails);
-      setUpdate(update + 1);
+      blogService
+        .getAll()
+        .then((blogs) => setBlogs(blogs.sort((a, b) => b.likes - a.likes)));
     };
 
     return likes;
@@ -141,6 +143,7 @@ const App = () => {
               blog={blog}
               handleLikes={handleLikes}
               handleDeletion={handleDeletion}
+              user={user}
             />
           ))}
         </div>
