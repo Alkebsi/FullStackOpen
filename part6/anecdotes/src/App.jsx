@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 
 const App = () => {
-  const anecdotes = useSelector((state) => state)
+  const anecdotes = useSelector((state) => state.sort((a, b) => b.votes - a.votes))
   const dispatch = useDispatch()
 
   const vote = (id) => {
@@ -21,7 +21,7 @@ const App = () => {
       type: 'NEW_POST',
       payload: {
         content,
-        votes: 0
+        votes: 0,
       },
     })
   }
@@ -41,7 +41,7 @@ const App = () => {
       <h2>create new</h2>
       <form onSubmit={addAnecdotes}>
         <div>
-          <input name='anecdote' placeholder='Add a new anecdote' />
+          <input name="anecdote" placeholder="Add a new anecdote" />
         </div>
         <button>create</button>
       </form>
