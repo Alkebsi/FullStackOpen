@@ -16,5 +16,21 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'quotes': [
+      'error',
+      'single'
+    ],
+    'semi': [
+      'error',
+      'never'
+    ],
+    'no-trailing-spaces': 'error',
+    'object-curly-spacing': [
+      'error', 'always'
+    ],
+    'arrow-spacing': [
+      'error', { 'before': true, 'after': true }
+    ],
+    'eqeqeq': 'error'
   },
 }
