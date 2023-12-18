@@ -34,6 +34,9 @@ const reducer = (state = initialState, action) => {
         anecdote.id !== id ? anecdote : changedAnecdotes
       )
     }
+    case 'NEW_POST': {
+      return state.concat(action.payload)
+    }
   }
 
   return state
