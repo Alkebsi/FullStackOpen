@@ -3,7 +3,8 @@ import { vote } from '../reducers/anecdoteReducer'
 
 const AnecdoteList = () => {
   const anecdotes = useSelector(({ anecdotes, filter }) => {
-    const sortedAnecdotes = anecdotes.sort((a, b) => b.votes - a.votes)
+    const clone = [...anecdotes]
+    const sortedAnecdotes = clone.sort((a, b) => b.votes - a.votes)
 
     return sortedAnecdotes.filter(
       (anecdote) => anecdote.content.search(filter) >= 0
