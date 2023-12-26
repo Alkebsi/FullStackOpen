@@ -31,6 +31,7 @@ module.exports = {
     'arrow-spacing': [
       'error', { 'before': true, 'after': true }
     ],
-    'eqeqeq': 'error'
+    'eqeqeq': 'error',
+    'no-console': 0
   },
 }
