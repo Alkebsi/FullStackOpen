@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux'
 
 const Notification = () => {
-  const notification = useSelector(({ anecdotes }) => {
-    console.log(anecdotes)
-    return anecdotes
+  const notification = useSelector(({ notifications }) => {
+    return notifications
   })
+  
   const style = {
     border: 'solid',
     padding: 10,
