@@ -5,10 +5,24 @@ const Notification = () => {
     return notifications
   })
   
-  const style = {
-    border: 'solid',
-    padding: 10,
-    borderWidth: 1,
+  let style = {
+    border: 'none'
+  }
+  
+  if (notification) {
+    console.log('works')
+    style = {
+      border: 'solid',
+      padding: 10,
+      borderWidth: 1,
+    }
+  } else {
+    console.log('doesnt')
+    style = {
+      border: 'none',
+      padding: 0,
+      borderWidth: 0,
+    }
   }
 
   return <div style={style}>{ notification }</div>
