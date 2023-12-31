@@ -10,14 +10,12 @@ const Notification = () => {
   }
   
   if (notification) {
-    console.log('works')
     style = {
       border: 'solid',
       padding: 10,
       borderWidth: 1,
     }
   } else {
-    console.log('doesnt')
     style = {
       border: 'none',
       padding: 0,

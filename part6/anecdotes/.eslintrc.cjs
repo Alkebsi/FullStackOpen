@@ -32,6 +32,6 @@ module.exports = {
       'error', { 'before': true, 'after': true }
     ],
     'eqeqeq': 'error',
-    'no-console': 0
+    'no-console': 'error',
   },
 }

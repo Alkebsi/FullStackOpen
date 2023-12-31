@@ -4,10 +4,10 @@ import App from './App'
 import store from './store'
 import eruda from 'eruda'
 
+eruda.init()
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <App />
   </Provider>
 )
-
-eruda.init()

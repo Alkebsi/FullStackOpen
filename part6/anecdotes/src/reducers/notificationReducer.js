@@ -10,7 +10,7 @@ const notificationSlice = createSlice({
     createAnecdoteNote(state, action) {
       return `you created '${action.payload}'`
     },
-    clearNote(state, action) {
+    clearNote() {
       return ''
     },
   },
