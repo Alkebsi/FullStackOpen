@@ -14,7 +14,7 @@ const AnecdoteList = () => {
   const dispatch = useDispatch()
 
   const votes = (anecdote) => {
-    dispatch(vote(anecdote.id))
+    dispatch(vote(anecdote))
     dispatch(voteNote(anecdote.content))
     
     window.setTimeout(() => {
