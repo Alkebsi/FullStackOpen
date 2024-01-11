@@ -1,5 +1,25 @@
-import { createContext } from 'react'
+import { createContext, useReducer } from 'react'
+
+const notificationReducer = (state, action) => {
+  switch(action.type) {
+    case 'VOTE':
+      return `anecdote "${action.payload}" voted`
+    case 'CREATE':
+      return `anecdote "${action.payload}" created`
+    case 'ZERO':
+      return ''
+  }
+}
 
 const NotificationContext = createContext()
+
+export const NotificationContextProvider = (props) => {
+  const [note, dispatchNote] = useReducer(notificationReducer, '') 
+  return ( 
+    <NotificationContext.Provider value={[note, dispatchNote]}>
+      {props.children}
+    </NotificationContext.Provider>
+    )
+}
 
 export default NotificationContext

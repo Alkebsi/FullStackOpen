@@ -1,23 +1,12 @@
+import { useContext } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
 import { getAnecdotes, updateAnecdote } from './requests'
-import { useReducer } from 'react'
 import NotificationContext from './contexts/NotificationContext'
 
-const notificationReducer = (state, action) => {
-  switch(action.type) {
-    case 'VOTE':
-      return `anecdote "${action.payload}" voted`
-    case 'CREATE':
-      return `anecdote "${action.payload}" created`
-    case 'ZERO':
-      return ''
-  }
-}
-
 const App = () => {
-  const [ note, dispatchNote ] = useReducer(notificationReducer, '')
+  const [note, dispatchNote] = useContext(NotificationContext, '')
   
   const queryClient = useQueryClient()
   const updateAnecdoteMutation = useMutation({
