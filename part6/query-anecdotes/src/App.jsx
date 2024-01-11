@@ -23,6 +23,9 @@ const App = () => {
       votes: anecdote.votes + 1
     })
     dispatchNote({type: 'VOTE', payload: anecdote.content})
+    window.setTimeout(() => {
+      dispatchNote({type: 'NULL'})
+    }, 5000)
   }
   
   const result = useQuery({
