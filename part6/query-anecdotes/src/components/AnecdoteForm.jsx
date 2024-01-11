@@ -17,6 +17,14 @@ const AnecdoteForm = () => {
       window.setTimeout(() => {
         dispatchNote({type: 'NULL'})
       }, 5000)
+    },
+    onError: () => {
+      const msg = 'too short anecdote, must have length 5 or more'
+      
+      dispatchNote({type: 'ERROR', payload: msg})
+      window.setTimeout(() => {
+        dispatchNote({type: 'NULL'})
+      }, 5000)
     }
   })
  
