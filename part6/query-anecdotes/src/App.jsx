@@ -3,6 +3,7 @@ import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
 import { getAnecdotes, updateAnecdote } from './requests'
 import { useReducer } from 'react'
+import NotificationContext from './contexts/NotificationContext'
 
 const notificationReducer = (state, action) => {
   switch(action.type) {
@@ -53,10 +54,11 @@ const App = () => {
   const anecdotes = result.data
 
   return (
+    <NotificationContext.Provider value={[ note, dispatchNote ]}>
     <div>
       <h3>Anecdote app</h3>
     
-      <Notification note={note} />
+      <Notification />
       <AnecdoteForm />
     
       {anecdotes.map(anecdote =>
@@ -71,6 +73,7 @@ const App = () => {
         </div>
       )}
     </div>
+    </NotificationContext.Provider>
   )
 }
 
