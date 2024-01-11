@@ -2,8 +2,22 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
 import { getAnecdotes, updateAnecdote } from './requests'
+import { useReducer } from 'react'
+
+const notificationReducer = (state, action) => {
+  switch(action.type) {
+    case 'VOTE':
+      return `anecdote "${action.payload}" voted`
+    case 'CREATE':
+      return `anecdote "${action.payload}" created`
+    case 'ZERO':
+      return ''
+  }
+}
 
 const App = () => {
+  const [ note, dispatchNote ] = useReducer(notificationReducer, '')
+  
   const queryClient = useQueryClient()
   const updateAnecdoteMutation = useMutation({
     mutationFn: updateAnecdote,
@@ -18,6 +32,7 @@ const App = () => {
       ...anecdote, 
       votes: anecdote.votes + 1
     })
+    dispatchNote({type: 'VOTE', payload: anecdote.content})
   }
   
   const result = useQuery({
@@ -41,7 +56,7 @@ const App = () => {
     <div>
       <h3>Anecdote app</h3>
     
-      <Notification />
+      <Notification note={note} />
       <AnecdoteForm />
     
       {anecdotes.map(anecdote =>
