@@ -1,8 +1,5 @@
-import { useParams } from 'react-router-dom'
-
-const Anecdote = ({ anecdotes }) => {
-  const id = useParams().id;
-  const { content, author, votes, info } = anecdotes.find((n) => n.id === Number(id))
+const Anecdote = ({ anecdote }) => {
+  const { content, author, votes, info } = anecdote
   
   return (
     <div>
