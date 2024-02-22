@@ -1,0 +1,37 @@
+{
+  "name": "bloglist-backend",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "build:ui": "rm -rf dist && cd ../frontend/ && npm run build && cp -r dist ../",
+    "lint": "eslint .",
+    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "start:test": "NODE_ENV=test node index.js"
+  },
+  "author": "Alkebsi",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "7.6.5",
+    "mongoose-unique-validator": "^4.0.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^8.56.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2",
+    "supertest": "^6.3.3"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
