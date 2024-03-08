@@ -1,4 +1,4 @@
-const calculateBmi = (height: number, weight: number): string => {
+export const calculateBmi = (height: number, weight: number): string => {
   const squareHeight: number = Math.pow(height / 100, 2);
   const bmi = weight / squareHeight;
   
@@ -17,13 +17,4 @@ const calculateBmi = (height: number, weight: number): string => {
   } else {
     throw new Error("You have provided wrong inputs!");
   }
-} 
-try {
-  console.log(calculateBmi(Number(process.argv[2]), Number(process.argv[3])));
-} catch (error: unknown) {
-  let errorMessage = "Something went wrong: ";
-  if (error instanceof Error) {
-    errorMessage += error.message;
-  }
-  console.log(errorMessage);
 }
