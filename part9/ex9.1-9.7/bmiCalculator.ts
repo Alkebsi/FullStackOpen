@@ -17,4 +17,4 @@ export const calculateBmi = (height: number, weight: number): string => {
   } else {
     throw new Error("You have provided wrong inputs!");
   }
-}
+};

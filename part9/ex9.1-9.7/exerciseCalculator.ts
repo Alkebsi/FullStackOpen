@@ -8,7 +8,7 @@ interface calculatedExercises {
   average: number;
 }
 
-const calculateExercises = (dailyExerciseHours: number[], target: number): calculatedExercises => {
+export const calculateExercises = (dailyExerciseHours: number[], target: number): calculatedExercises => {
   const periodLength = dailyExerciseHours.length;
   let sumHours = 0;
   let trainingDays = 0;
@@ -51,10 +51,10 @@ const calculateExercises = (dailyExerciseHours: number[], target: number): calcu
     ratingDescription,
     target,
     average
-  }
-}
+  };
+};
 
-const parseInputs = (args: string[]) => {
+export const parseInputs = (args: string[]) => {
   if (isNaN(Number(args[2]))) {
     throw new Error('Inputs must be numbers');
   }
@@ -77,19 +77,5 @@ const parseInputs = (args: string[]) => {
   return {
     target,
     days
-  }
-}
-
-try {
-  const {
-    target,
-    days
-  } = parseInputs(process.argv);
-  console.log(calculateExercises(days, target));
-} catch (error: unknown) {
-  let errorMessage = 'Something bad happened.'
-  if (error instanceof Error) {
-    errorMessage += ' Error: ' + error.message;
-  }
-  console.log(errorMessage);
-}
+  };
+};
